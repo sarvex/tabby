@@ -1,3 +1,3 @@
 {
-  "extends": ["github>sarvex/renovate-configs:ja-app"]
+  "extends": ["github>sarvex/renovate-configs:js-app"]
 }
