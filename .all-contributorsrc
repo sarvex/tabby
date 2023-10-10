@@ -1193,6 +1193,51 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "DehanLUO",
+      "name": "Han",
+      "avatar_url": "https://avatars.githubusercontent.com/u/53093688?v=4",
+      "profile": "https://github.com/DehanLUO",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "wljince007",
+      "name": "wljince007",
+      "avatar_url": "https://avatars.githubusercontent.com/u/88243938?v=4",
+      "profile": "https://github.com/wljince007",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "FeroTheFox",
+      "name": "fero",
+      "avatar_url": "https://avatars.githubusercontent.com/u/52982404?v=4",
+      "profile": "https://github.com/FeroTheFox",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "siebsie23",
+      "name": "Sibren",
+      "avatar_url": "https://avatars.githubusercontent.com/u/25083973?v=4",
+      "profile": "https://siebsie23.nl/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nwalser",
+      "name": "Nathaniel Walser",
+      "avatar_url": "https://avatars.githubusercontent.com/u/33339996?v=4",
+      "profile": "https://www.nathaniel-walser.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -1201,5 +1246,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "commitConvention": "none",
-  "skipCi": true
+  "skipCi": true,
+  "commitType": "docs"
 }

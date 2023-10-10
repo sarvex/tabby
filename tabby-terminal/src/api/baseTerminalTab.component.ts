@@ -1,4 +1,4 @@
-import { Observable, Subject, first, auditTime } from 'rxjs'
+import { Observable, Subject, first, auditTime, debounce, interval } from 'rxjs'
 import { Spinner } from 'cli-spinner'
 import colors from 'ansi-colors'
 import { NgZone, OnInit, OnDestroy, Injector, ViewChild, HostBinding, Input, ElementRef, InjectFlags, Component } from '@angular/core'
@@ -13,6 +13,9 @@ import { ResizeEvent, BaseTerminalProfile } from './interfaces'
 import { TerminalDecorator } from './decorator'
 import { SearchPanelComponent } from '../components/searchPanel.component'
 import { MultifocusService } from '../services/multifocus.service'
+
+
+const INACTIVE_TAB_UNLOAD_DELAY = 1000 * 30
 
 /**
  * A class to base your custom terminal tabs on
@@ -147,11 +150,13 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             },
         },
     })
+
     private spinnerActive = false
     private spinnerPaused = false
     private toolbarRevealTimeout = new ResettableTimeout(() => {
         this.revealToolbar = false
     }, 1000)
+
     private frontendWriteLock = Promise.resolve()
 
     get input$ (): Observable<Buffer> {
@@ -331,7 +336,30 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
             this.frontend?.focus()
         })
 
-        const cls: new (..._) => Frontend = {
+        this.subscribeUntilDestroyed(this.platform.themeChanged$, () => {
+            this.configure()
+        })
+
+        // Check if the the WebGL renderer is compatible with xterm.js:
+        // - https://github.com/Eugeny/tabby/issues/8884
+        // - https://github.com/microsoft/vscode/issues/190195
+        // - https://github.com/xtermjs/xterm.js/issues/4665
+        // - https://bugs.chromium.org/p/chromium/issues/detail?id=1476475
+        //
+        // Inspired by https://github.com/microsoft/vscode/pull/191795
+
+        let enable8884Workarround = false
+        const checkCanvas = document.createElement('canvas')
+        const checkGl = checkCanvas.getContext('webgl2')
+        const debugInfo = checkGl?.getExtension('WEBGL_debug_renderer_info')
+        if (checkGl && debugInfo) {
+            const renderer = checkGl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL)
+            if (renderer.startsWith('ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)')) {
+                enable8884Workarround = true
+            }
+        }
+
+        const cls: new (..._) => Frontend = enable8884Workarround ? XTermFrontend : {
             xterm: XTermFrontend,
             'xterm-webgl': XTermWebGLFrontend,
         }[this.config.store.terminal.frontend] ?? XTermFrontend
@@ -404,6 +432,24 @@ export class BaseTerminalTabComponent<P extends BaseTerminalProfile> extends Bas
         this.blurred$.subscribe(() => {
             this.multifocus.cancel()
         })
+
+        this.visibility$
+            .pipe(debounce(visibility => interval(visibility ? 0 : INACTIVE_TAB_UNLOAD_DELAY)))
+            .subscribe(visibility => {
+                if (this.frontend instanceof XTermFrontend) {
+                    if (visibility) {
+                        // this.frontend.resizeHandler()
+                        const term = this.frontend.xterm as any
+                        term._core._renderService.clear()
+                        term._core._renderService.handleResize(term.cols, term.rows)
+                    } else {
+                        this.frontend.xterm.element?.querySelectorAll('canvas').forEach(c => {
+                            c.height = c.width = 0
+                            c.style.height = c.style.width = '0px'
+                        })
+                    }
+                }
+            })
     }
 
     protected onFrontendReady (): void {

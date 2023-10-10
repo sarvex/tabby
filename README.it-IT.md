@@ -117,6 +117,7 @@ Plugins and themes can be installed directly from the Settings view inside Tabby
 * [clippy](https://github.com/Eugeny/tabby-clippy) - an example plugin which annoys you all the time
 * [workspace-manager](https://github.com/composer404/tabby-workspace-manager) - allows creating custom workspace profiles based on the given config
 * [search-in-browser](https://github.com/composer404/tabby-search-in-browser) - opens default system browser with a text selected from the Tabby's tab
+* [sftp-tab](https://github.com/wljince007/tabby-sftp-tab) - open sftp tab for ssh connection like SecureCRT
 
 <a name="themes"></a>
 # Temi
@@ -317,6 +318,13 @@ Grazie a queste persone meravigliose ([emoji key](https://allcontributors.org/do
       <td align="center" valign="top" width="14.28%"><a href="https://dylhack.dev/"><img src="https://avatars.githubusercontent.com/u/27179786?v=4?s=100" width="100px;" alt="Dylan Hackworth"/><br /><sub><b>Dylan Hackworth</b></sub></a><br /><a href="#financial-dylhack" title="Financial">💵</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/echo304"><img src="https://avatars.githubusercontent.com/u/16456651?v=4?s=100" width="100px;" alt="Sangboak Lee"/><br /><sub><b>Sangboak Lee</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=echo304" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/qyecst"><img src="https://avatars.githubusercontent.com/u/13901864?v=4?s=100" width="100px;" alt="qyecst"/><br /><sub><b>qyecst</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=qyecst" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/DehanLUO"><img src="https://avatars.githubusercontent.com/u/53093688?v=4?s=100" width="100px;" alt="Han"/><br /><sub><b>Han</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=DehanLUO" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/wljince007"><img src="https://avatars.githubusercontent.com/u/88243938?v=4?s=100" width="100px;" alt="wljince007"/><br /><sub><b>wljince007</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=wljince007" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/FeroTheFox"><img src="https://avatars.githubusercontent.com/u/52982404?v=4?s=100" width="100px;" alt="fero"/><br /><sub><b>fero</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=FeroTheFox" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://siebsie23.nl/"><img src="https://avatars.githubusercontent.com/u/25083973?v=4?s=100" width="100px;" alt="Sibren"/><br /><sub><b>Sibren</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=siebsie23" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.nathaniel-walser.com"><img src="https://avatars.githubusercontent.com/u/33339996?v=4?s=100" width="100px;" alt="Nathaniel Walser"/><br /><sub><b>Nathaniel Walser</b></sub></a><br /><a href="https://github.com/Eugeny/tabby/commits?author=nwalser" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>

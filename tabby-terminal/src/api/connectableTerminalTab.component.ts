@@ -4,7 +4,7 @@ import { Injector, Component } from '@angular/core'
 
 import { first } from 'rxjs'
 
-import { BaseTerminalProfile } from './interfaces'
+import { ConnectableTerminalProfile } from './interfaces'
 import { BaseTerminalTabComponent } from './baseTerminalTab.component'
 import { GetRecoveryTokenOptions, RecoveryToken } from 'tabby-core'
 
@@ -13,7 +13,7 @@ import { GetRecoveryTokenOptions, RecoveryToken } from 'tabby-core'
  * A class to base your custom connectable terminal tabs on
  */
 @Component({ template: '' })
-export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProfile> extends BaseTerminalTabComponent<P> {
+export abstract class ConnectableTerminalTabComponent<P extends ConnectableTerminalProfile> extends BaseTerminalTabComponent<P> {
 
     protected reconnectOffered = false
     protected isDisconnectedByHand = false
@@ -46,7 +46,9 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     }
 
     protected onFrontendReady (): void {
-        this.initializeSession()
+        this.initializeSession().then(() => {
+            this.clearServiceMessagesOnConnect()
+        })
         super.onFrontendReady()
     }
 
@@ -116,7 +118,14 @@ export abstract class ConnectableTerminalTabComponent<P extends BaseTerminalProf
     async reconnect (): Promise<void> {
         this.session?.destroy()
         await this.initializeSession()
+        this.clearServiceMessagesOnConnect()
         this.session?.releaseInitialDataBuffer()
+    }
+
+    private clearServiceMessagesOnConnect (): void {
+        if (this.profile.clearServiceMessagesOnConnect && this.session?.open) {
+            this.frontend?.clear()
+        }
     }
 
 }
